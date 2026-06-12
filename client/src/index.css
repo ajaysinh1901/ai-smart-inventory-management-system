@@ -1,0 +1,377 @@
+/* ── Fonts ─────────────────────────────────────────────────────────────────── */
+
+/* Plus Jakarta Sans (UI body), Fraunces (serif display), IBM Plex Mono (figures)
+   are loaded via Google Fonts <link> in index.html.
+   JetBrains Mono kept self-hosted as a mono fallback. */
+
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 400 500;
+  font-display: swap;
+  src: url('/fonts/JetBrainsMono-Regular-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
+    U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --primary: #213467;
+    --primary-soft: #406EB5;
+    --primary-deep: #0D2240;
+    --brass: #51A2FF;
+    --coral: #FF7D55;
+    /* Card/input bg token — used by FloatingInput notch to match card surface */
+    --card-bg: #FFFFFF;
+    /* Editorial neutral tokens */
+    --ink: #1A1A1A;
+    --paper: #FFFFFF;
+    --paper-soft: #F1F1F1;
+    --paper-rule: #E5E5E5;
+  }
+
+  .dark {
+    --card-bg: #212121;
+    --ink: #1A1A1A;
+    --paper: #1A1A1A;
+    --paper-soft: #212121;
+    --paper-rule: #333333;
+  }
+
+  html {
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11', 'ss01';
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    background-color: #FFFFFF;
+    color: #1A1A1A;
+    font-family: 'Plus Jakarta Sans', Inter, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  }
+
+  /* ── Dark mode body defaults ─────────────────────────────────────────── */
+  .dark body {
+    background-color: #1A1A1A;
+    color: #F1F1F1;
+  }
+
+  /* ── Editorial display class — opt-in via .font-display ──────────────── */
+  .font-display,
+  .font-serif {
+    font-family: Fraunces, 'Cormorant Garamond', Georgia, serif;
+    font-feature-settings: 'ss01', 'ss02';
+  }
+
+  /* Tighten letter-spacing on serif display headings — matches Carta's -3% */
+  .font-display { letter-spacing: -0.02em; }
+}
+
+@layer utilities {
+  /* ── Page backgrounds ─────────────────────────────────────────────────── */
+  /* Pure white with a near-invisible grain — Carta-flat */
+  .bg-app {
+    background-color: #FFFFFF;
+    background-image:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.018'/%3E%3C/svg%3E");
+  }
+
+  /* Dark variant — near-black + 2% noise */
+  .dark .bg-app {
+    background-color: #1A1A1A;
+    background-image:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
+  }
+
+  /* Soft canvas — Carta's #F1F1F1 panel */
+  .bg-canvas {
+    background-color: #F1F1F1;
+  }
+  .dark .bg-canvas {
+    background-color: #212121;
+  }
+
+  /* Editorial dark section — Carta's #394040 */
+  .bg-dusk {
+    background-color: #394040;
+    color: #FFFFFF;
+  }
+
+  /* Login surface — clean white in light, near-black in dark */
+  .bg-login {
+    background-color: #FFFFFF;
+  }
+  .dark .bg-login {
+    background-color: #1A1A1A;
+  }
+
+  /* ── Ledger rule — switches from navy bar to thin editorial hairline ─── */
+  .ledger-rule {
+    height: 1px;
+    background-color: #1A1A1A;
+  }
+
+  .dark .ledger-rule {
+    background-color: #F1F1F1;
+  }
+
+  /* Optional underline-grow accent under serif headings */
+  .editorial-underline {
+    position: relative;
+    display: inline-block;
+  }
+  .editorial-underline::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -6px;
+    height: 2px;
+    width: 100%;
+    background-color: #1A1A1A;
+    transform-origin: left;
+    animation: underlineGrow 360ms cubic-bezier(0, 0, 0.2, 1) forwards;
+  }
+  .dark .editorial-underline::after { background-color: #F1F1F1; }
+
+  /* ── Surface card — flatter, Carta-style ─────────────────────────────── */
+  .surface-card {
+    background-color: #FFFFFF;
+    border-radius: 0.75rem;
+    border: 1px solid #E5E5E5;
+    box-shadow: 0 1px 2px 0 rgba(26, 26, 26, 0.04);
+  }
+
+  .dark .surface-card {
+    background-color: #212121;
+    border-color: #333333;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.4);
+  }
+
+  .surface-card-hover {
+    @apply transition-all duration-200 ease-out;
+  }
+
+  .surface-card-hover:hover {
+    box-shadow: 0 6px 20px -6px rgba(26, 26, 26, 0.08), 0 2px 4px -2px rgba(26, 26, 26, 0.04);
+    border-color: #1A1A1A;
+  }
+  .dark .surface-card-hover:hover {
+    border-color: #F1F1F1;
+  }
+
+  /* ── Sidebar active item ─────────────────────────────────────────────── */
+  .sidebar-item-active {
+    background-color: rgba(26, 26, 26, 0.05);
+  }
+
+  .dark .sidebar-item-active {
+    background-color: rgba(241, 241, 241, 0.07);
+  }
+
+  /* ── CSS var update for card bg token ────────────────────────────────── */
+  .surface-card,
+  [data-card],
+  .card-bg-token {
+    --card-bg: #FFFFFF;
+  }
+
+  .dark .surface-card,
+  .dark [data-card],
+  .dark .card-bg-token {
+    --card-bg: #212121;
+  }
+
+  /* ── Stronger focus rings ────────────────────────────────────────────── */
+  .focus-ring {
+    @apply outline-none focus-visible:ring-2 focus-visible:ring-ink/40 focus-visible:ring-offset-2 focus-visible:border-ink;
+  }
+
+  .dark .focus-ring {
+    @apply focus-visible:ring-offset-ink focus-visible:ring-paper/40 focus-visible:border-paper;
+  }
+
+  /* ── Inputs base — used by Input/Select/Textarea ─────────────────────── */
+  .field-base {
+    @apply w-full text-sm border border-paper-rule dark:border-ink-rule rounded-lg px-3 py-2.5;
+    background-color: #FFFFFF;
+    color: #1A1A1A;
+    transition: border-color 200ms cubic-bezier(0, 0, 0.2, 1), box-shadow 200ms cubic-bezier(0, 0, 0.2, 1);
+  }
+
+  .dark .field-base {
+    background-color: #212121;
+    color: #F1F1F1;
+    border-color: #333333;
+  }
+
+  .field-base:focus {
+    border-color: #1A1A1A;
+    box-shadow: 0 0 0 1px #1A1A1A;
+  }
+  .dark .field-base:focus {
+    border-color: #F1F1F1;
+    box-shadow: 0 0 0 1px #F1F1F1;
+  }
+
+  .field-base::placeholder {
+    color: #9CA3AF;
+  }
+
+  .dark .field-base::placeholder {
+    color: #6B7280;
+  }
+
+  /* ── Editorial buttons (Carta-style) ─────────────────────────────────── */
+  /* Primary: solid dark, white text, 2px inset border */
+  .btn-editorial {
+    @apply inline-flex items-center justify-center gap-2 font-medium text-sm rounded-btn px-8 py-3 transition-all;
+    background-color: #1A1A1A;
+    color: #FFFFFF;
+    box-shadow: inset 0 0 0 2px #1A1A1A;
+    transition: background-color 200ms cubic-bezier(0, 0, 0.2, 1), color 200ms cubic-bezier(0, 0, 0.2, 1), transform 200ms cubic-bezier(0, 0, 0.2, 1);
+  }
+  .btn-editorial:hover {
+    background-color: #FFFFFF;
+    color: #1A1A1A;
+  }
+  .btn-editorial:active {
+    transform: translateY(1px);
+  }
+  .dark .btn-editorial {
+    background-color: #F1F1F1;
+    color: #1A1A1A;
+    box-shadow: inset 0 0 0 2px #F1F1F1;
+  }
+  .dark .btn-editorial:hover {
+    background-color: #1A1A1A;
+    color: #F1F1F1;
+  }
+
+  /* Secondary: outline, dark text, white bg */
+  .btn-editorial-outline {
+    @apply inline-flex items-center justify-center gap-2 font-medium text-sm rounded-btn px-8 py-3 transition-all;
+    background-color: #FFFFFF;
+    color: #1A1A1A;
+    box-shadow: inset 0 0 0 2px #1A1A1A;
+    transition: background-color 200ms cubic-bezier(0, 0, 0.2, 1), color 200ms cubic-bezier(0, 0, 0.2, 1);
+  }
+  .btn-editorial-outline:hover {
+    background-color: #1A1A1A;
+    color: #FFFFFF;
+  }
+  .dark .btn-editorial-outline {
+    background-color: transparent;
+    color: #F1F1F1;
+    box-shadow: inset 0 0 0 2px #F1F1F1;
+  }
+  .dark .btn-editorial-outline:hover {
+    background-color: #F1F1F1;
+    color: #1A1A1A;
+  }
+
+  /* Primary brand button (keeps SmartStock navy for product recognition) */
+  .btn-brand {
+    @apply inline-flex items-center justify-center gap-2 font-medium text-sm rounded-btn px-8 py-3 transition-all;
+    background-color: #213467;
+    color: #FFFFFF;
+    box-shadow: inset 0 0 0 2px #213467;
+    transition: background-color 200ms cubic-bezier(0, 0, 0.2, 1), transform 200ms cubic-bezier(0, 0, 0.2, 1);
+  }
+  .btn-brand:hover {
+    background-color: #0D2240;
+  }
+  .btn-brand:active {
+    transform: translateY(1px);
+  }
+  .dark .btn-brand {
+    background-color: #406EB5;
+    box-shadow: inset 0 0 0 2px #406EB5;
+  }
+  .dark .btn-brand:hover {
+    background-color: #213467;
+  }
+
+  /* ── Tabular numerals globally where money appears ───────────────────── */
+  .tabular-nums {
+    font-feature-settings: 'tnum', 'lnum';
+  }
+
+  /* ── Hide-on-mobile column helpers for dense tables ─────────────────── */
+  .col-mobile-hide {
+    @apply hidden sm:table-cell;
+  }
+  .col-tablet-hide {
+    @apply hidden md:table-cell;
+  }
+  .col-desktop-only {
+    @apply hidden lg:table-cell;
+  }
+
+  /* ── Stagger reveal for grid cards ──────────────────────────────────── */
+  .stagger-1 { animation-delay: 30ms; }
+  .stagger-2 { animation-delay: 60ms; }
+  .stagger-3 { animation-delay: 90ms; }
+  .stagger-4 { animation-delay: 120ms; }
+
+  /* ── Scrollbar ───────────────────────────────────────────────────────── */
+  .scrollbar-thin::-webkit-scrollbar { width: 4px; height: 4px; }
+  .scrollbar-thin::-webkit-scrollbar-track { background: transparent; }
+  .scrollbar-thin::-webkit-scrollbar-thumb { background: #E5E5E5; border-radius: 2px; }
+  .scrollbar-thin:hover::-webkit-scrollbar-thumb { background: #1A1A1A; }
+
+  .dark .scrollbar-thin::-webkit-scrollbar-thumb { background: #333333; }
+  .dark .scrollbar-thin:hover::-webkit-scrollbar-thumb { background: #F1F1F1; }
+
+  /* ── Animations ──────────────────────────────────────────────────────── */
+  @keyframes toast-in {
+    0%  { opacity: 0; transform: translateX(20px); }
+    100% { opacity: 1; transform: translateX(0); }
+  }
+  .animate-toast-in { animation: toast-in 220ms cubic-bezier(0, 0, 0.2, 1); }
+
+  @keyframes drawer-in {
+    0%   { transform: translateX(-100%); }
+    100% { transform: translateX(0); }
+  }
+  .animate-drawer-in { animation: drawer-in 240ms cubic-bezier(0, 0, 0.2, 1); }
+
+  @keyframes fade-in {
+    0%   { opacity: 0; }
+    100% { opacity: 1; }
+  }
+  .animate-fade-in { animation: fade-in 220ms cubic-bezier(0, 0, 0.2, 1); }
+
+  @keyframes slide-up {
+    0%   { opacity: 0; transform: translateY(12px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+  .animate-slide-up { animation: slide-up 320ms cubic-bezier(0, 0, 0.2, 1); }
+
+  @keyframes underlineGrow {
+    0%   { transform: scaleX(0); }
+    100% { transform: scaleX(1); }
+  }
+}
+
+/* ── Print ────────────────────────────────────────────────────────────────── */
+@media print {
+  body * { visibility: hidden; }
+  .invoice-print, .invoice-print * { visibility: visible; }
+  .invoice-print {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 24px;
+    background: #fff;
+    color: #000;
+  }
+  .no-print { display: none !important; }
+  .invoice-print table { page-break-inside: avoid; }
+  @page { size: A4; margin: 12mm; }
+}

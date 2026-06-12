@@ -1,0 +1,26 @@
+<!DOCTYPE html><html><head><meta charset="UTF-8"><style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Arial,sans-serif}
+body{width:1120px;height:640px;background:#fff;padding:24px}
+.title{text-align:center;font-size:21px;font-weight:700;color:#1f3864;margin-bottom:18px}
+.core{width:280px;margin:0 auto 14px;background:#1f3864;color:#fff;text-align:center;padding:12px;border-radius:10px;font-size:16px;font-weight:700}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.mod{border:1.5px solid #2e5f9e;border-radius:8px;padding:11px 13px}
+.mod h4{font-size:14.5px;color:#1f3864;margin-bottom:4px}
+.mod p{font-size:12px;color:#3a4a66;line-height:1.45}
+.cap{text-align:center;font-size:13px;color:#444;margin-top:16px;font-style:italic}
+</style></head><body>
+<div class="title">System Module Diagram</div>
+<div class="core">AI Smart Inventory Management System</div>
+<div class="grid">
+  <div class="mod"><h4>Authentication &amp; Onboarding</h4><p>Register / login with JWT, bcrypt-hashed passwords, guided 7-step onboarding wizard.</p></div>
+  <div class="mod"><h4>Inventory Management</h4><p>Products, units of measure, stock levels, low-stock detection, shrinkage records.</p></div>
+  <div class="mod"><h4>Quick Sale &amp; Billing</h4><p>Amount/weight-first billing, GST computation, PDF invoice with UPI QR code.</p></div>
+  <div class="mod"><h4>Customers &amp; Digital Khata</h4><p>Customer directory and credit ledger with running balances and repayments.</p></div>
+  <div class="mod"><h4>Supplier Management</h4><p>Supplier records, purchase transactions and sample-pack shrinkage reports.</p></div>
+  <div class="mod"><h4>AI Insights</h4><p>Gemini-powered demand forecasting, reorder report and in-app help assistant.</p></div>
+  <div class="mod"><h4>OCR Bill Scanner</h4><p>Tesseract.js extracts products from photographed supplier bills for import.</p></div>
+  <div class="mod"><h4>Analytics &amp; Reports</h4><p>KPI dashboard, sales trends, scheduled reports and Tally-compatible export.</p></div>
+  <div class="mod"><h4>Smart Alerts (Cron)</h4><p>Scheduled jobs raise low-stock, expiry and anomaly notifications automatically.</p></div>
+</div>
+<div class="cap">Each module is implemented as an independent route group on the server with a matching set of client pages.</div>
+</body></html>

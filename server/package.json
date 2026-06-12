@@ -1,0 +1,39 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "node --test tests/smoke/**/*.test.js",
+    "test:e2e": "node --test tests/smoke/e2e-*.test.js",
+    "start": "node src/server.js",
+    "seed:demo": "node src/migrations/seed-demo-account.js",
+    "migrate:uom": "BACKUP_VERIFIED=yes node src/migrations/2026-04-29-product-uom.js",
+    "lint:decimal128": "! grep -rn \"Types.Decimal128(\" src/ | grep -v \"src/utils/money.js\" | grep -v \"src/utils/weight.js\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "axios": "^1.16.1"
+  },
+  "dependencies": {
+    "@google/generative-ai": "^0.24.1",
+    "bcryptjs": "^3.0.3",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.6",
+    "decimal.js": "^10.6.0",
+    "dotenv": "^17.3.1",
+    "express": "^5.2.1",
+    "express-rate-limit": "^8.4.1",
+    "jsonwebtoken": "^9.0.3",
+    "mongoose": "^9.3.1",
+    "morgan": "^1.10.1",
+    "multer": "^2.1.1",
+    "node-cron": "^4.2.1",
+    "pdfkit": "^0.18.0",
+    "qrcode": "^1.5.4",
+    "tesseract.js": "^7.0.0",
+    "zod": "^4.3.6"
+  }
+}

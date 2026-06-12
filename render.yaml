@@ -1,0 +1,41 @@
+# Render Blueprint — SmartStock AI backend
+# Docs: https://render.com/docs/blueprint-spec
+#
+# Usage:
+#   1) Push this repo to GitHub.
+#   2) In Render → "New +" → "Blueprint" → connect this repo → Render reads this file.
+#   3) Fill in the Atlas connection string + secrets in the dashboard prompt.
+#
+# Frontend is deployed separately on Vercel (see client/vercel.json).
+
+services:
+  - type: web
+    name: smartstock-api
+    runtime: node
+    plan: free
+    region: singapore        # closest free region to India / SE Asia
+    rootDir: server
+    buildCommand: npm install
+    startCommand: node src/server.js
+    healthCheckPath: /api/v1/health
+    autoDeploy: true
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000          # Render's default exposed port
+      - key: JWT_EXPIRES_IN
+        value: 7d
+      # Secrets — set these in the Render dashboard, NOT in source control.
+      - key: MONGODB_URI
+        sync: false           # prompt on first deploy
+      - key: JWT_SECRET
+        generateValue: true   # Render generates a strong random value
+      - key: CLIENT_URL
+        sync: false           # e.g. https://client-alpha-nine-86.vercel.app
+      - key: VERCEL_PROJECT_SLUG
+        value: client         # matches the Vercel project name → allows preview URLs
+      - key: GEMINI_API_KEY
+        sync: false           # required for AI features
+      - key: SMART_ALERTS_CRON
+        value: "0 9 * * *"    # 9 AM IST daily (server may be asleep on free tier)

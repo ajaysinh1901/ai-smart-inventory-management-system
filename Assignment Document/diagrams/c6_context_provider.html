@@ -1,0 +1,38 @@
+<!DOCTYPE html><html><head><meta charset="UTF-8"><style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{width:940px;height:500px;background:#fff;padding:20px;font-family:'Segoe UI',Arial,sans-serif}
+.title{text-align:center;font-size:18px;font-weight:700;color:#1f3864;margin-bottom:14px}
+.win{border:1px solid #cdd6ea;border-radius:8px;overflow:hidden}
+.bar{background:#eef2fa;border-bottom:1px solid #cdd6ea;padding:7px 12px;font-size:12.5px;color:#5b6a8c}
+.bar .dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:5px;vertical-align:middle}
+.code{background:#fbfcff;font-family:Consolas,'Courier New',monospace;font-size:14px}
+.code ol{margin:0;padding:12px 20px 12px 54px}
+.code li{white-space:pre;line-height:1.6;color:#243047}
+.code li::marker{color:#aab3cc;font-size:12px}
+.com{color:#8a93a8;font-style:italic}.str{color:#0a7d36}.kw{color:#1f3864;font-weight:600}.tag{color:#2563a8}
+</style></head><body>
+<div class="title">A React Context Provider (State Management)</div>
+<div class="win">
+  <div class="bar"><span class="dot" style="background:#e0626d"></span><span class="dot" style="background:#e6b84b"></span><span class="dot" style="background:#4bb36b"></span>AuthContext.jsx</div>
+  <div class="code"><ol>
+<li><span class="kw">import</span> { createContext, useContext, useState } <span class="kw">from</span> <span class="str">'react'</span>;</li>
+<li></li>
+<li><span class="kw">const</span> AuthContext = createContext();</li>
+<li></li>
+<li><span class="kw">export function</span> AuthProvider({ children }) {</li>
+<li>  <span class="kw">const</span> [user, setUser] = useState(<span class="kw">null</span>);</li>
+<li></li>
+<li>  <span class="kw">const</span> login  = (data) =&gt; setUser(data);</li>
+<li>  <span class="kw">const</span> logout = () =&gt; setUser(<span class="kw">null</span>);</li>
+<li></li>
+<li>  <span class="kw">return</span> (</li>
+<li>    <span class="tag">&lt;AuthContext.Provider</span> value={{ user, login, logout }}<span class="tag">&gt;</span></li>
+<li>      {children}</li>
+<li>    <span class="tag">&lt;/AuthContext.Provider&gt;</span></li>
+<li>  );</li>
+<li>}</li>
+<li></li>
+<li><span class="kw">export const</span> useAuth = () =&gt; useContext(AuthContext);</li>
+  </ol></div>
+</div>
+</body></html>

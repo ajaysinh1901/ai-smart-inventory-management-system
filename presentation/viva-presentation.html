@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>AI Smart Inventory Management System — Viva Presentation</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  @page { size: 1280px 720px; margin: 0; }
+  body { font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif; background: #0b1020; }
+
+  .slide {
+    width: 1280px; height: 720px;
+    page-break-after: always;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(135deg, #0e1530 0%, #0b1020 60%, #101a3a 100%);
+    color: #e8ecf8;
+    padding: 56px 72px;
+    display: flex; flex-direction: column;
+  }
+  .slide:last-child { page-break-after: avoid; }
+
+  /* decorative accents */
+  .slide::before {
+    content: ''; position: absolute; right: -160px; top: -160px;
+    width: 420px; height: 420px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(99,102,241,.22), transparent 70%);
+  }
+  .slide::after {
+    content: ''; position: absolute; left: -120px; bottom: -140px;
+    width: 360px; height: 360px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(16,185,129,.13), transparent 70%);
+  }
+  .slide > * { position: relative; z-index: 1; }
+
+  .kicker {
+    font-size: 15px; letter-spacing: 3px; text-transform: uppercase;
+    color: #818cf8; font-weight: 600; margin-bottom: 10px;
+  }
+  h2 { font-size: 42px; font-weight: 700; color: #ffffff; margin-bottom: 6px; }
+  .subtitle-line { width: 88px; height: 5px; border-radius: 3px; margin: 16px 0 30px;
+    background: linear-gradient(90deg, #6366f1, #10b981); }
+
+  .footer {
+    position: absolute; bottom: 26px; left: 72px; right: 72px;
+    display: flex; justify-content: space-between;
+    font-size: 13.5px; color: #5b648a; z-index: 1;
+  }
+
+  ul.points { list-style: none; }
+  ul.points li {
+    font-size: 21px; line-height: 1.5; color: #c7cee6;
+    padding-left: 34px; margin-bottom: 18px; position: relative;
+  }
+  ul.points li::before {
+    content: ''; position: absolute; left: 0; top: 11px;
+    width: 12px; height: 12px; border-radius: 4px;
+    background: linear-gradient(135deg, #6366f1, #10b981);
+  }
+  ul.points li b { color: #ffffff; font-weight: 600; }
+
+  .two-col { display: flex; gap: 48px; flex: 1; }
+  .two-col > div { flex: 1; }
+
+  .card {
+    background: rgba(255,255,255,.045);
+    border: 1px solid rgba(129,140,248,.25);
+    border-radius: 16px; padding: 22px 26px;
+  }
+  .card h3 { font-size: 20px; color: #a5b4fc; margin-bottom: 10px; font-weight: 600; }
+  .card p, .card li { font-size: 17.5px; color: #c7cee6; line-height: 1.5; }
+
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; flex: 1; align-content: start; }
+  .grid3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 22px; flex: 1; align-content: start; }
+
+  .pill {
+    display: inline-block; padding: 6px 16px; border-radius: 999px;
+    background: rgba(99,102,241,.16); border: 1px solid rgba(129,140,248,.4);
+    color: #c7d2fe; font-size: 16px; margin: 0 8px 12px 0; font-weight: 500;
+  }
+
+  table { border-collapse: collapse; width: 100%; }
+  th, td { text-align: left; padding: 12px 18px; font-size: 18px; }
+  th { color: #a5b4fc; font-weight: 600; border-bottom: 2px solid rgba(129,140,248,.4); }
+  td { color: #c7cee6; border-bottom: 1px solid rgba(129,140,248,.15); }
+  td b { color: #fff; font-weight: 600; }
+
+  /* ---------- title slide ---------- */
+  .title-slide { justify-content: center; align-items: center; text-align: center; }
+  .title-slide .logo-badge {
+    width: 96px; height: 96px; border-radius: 26px; margin-bottom: 34px;
+    background: linear-gradient(135deg, #6366f1, #10b981);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 46px; box-shadow: 0 12px 50px rgba(99,102,241,.45);
+  }
+  .title-slide h1 { font-size: 58px; font-weight: 800; color: #fff; line-height: 1.15; max-width: 980px; }
+  .title-slide .tagline { font-size: 23px; color: #9aa4c8; margin-top: 20px; }
+  .title-slide .meta { margin-top: 48px; font-size: 18px; color: #7c87b0; line-height: 2; }
+  .title-slide .meta b { color: #c7d2fe; font-weight: 600; }
+
+  /* ---------- architecture diagram ---------- */
+  .arch { display: flex; align-items: stretch; justify-content: center; gap: 0; flex: 1; }
+  .arch-tier {
+    flex: 1; max-width: 330px; border-radius: 18px; padding: 20px 22px;
+    background: rgba(255,255,255,.05); border: 1px solid rgba(129,140,248,.35);
+    display: flex; flex-direction: column;
+  }
+  .arch-tier h3 { font-size: 21px; color: #fff; margin-bottom: 4px; }
+  .arch-tier .tech { font-size: 15px; color: #818cf8; margin-bottom: 14px; font-weight: 600; }
+  .arch-box {
+    background: rgba(99,102,241,.14); border: 1px solid rgba(129,140,248,.3);
+    border-radius: 10px; padding: 9px 13px; font-size: 15.5px; color: #d4dafc; margin-bottom: 9px;
+  }
+  .arch-arrow {
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    width: 110px; color: #818cf8; font-weight: 600; font-size: 13.5px; text-align: center; gap: 6px;
+  }
+  .arch-arrow .line { font-size: 30px; letter-spacing: -2px; color: #6366f1; }
+
+  /* ---------- flow diagram ---------- */
+  .flow { display: flex; align-items: center; justify-content: center; gap: 14px; margin-top: 8px; }
+  .flow-step {
+    background: rgba(255,255,255,.05); border: 1px solid rgba(129,140,248,.35);
+    border-radius: 14px; padding: 16px 18px; text-align: center; flex: 1;
+  }
+  .flow-step .icon { font-size: 30px; margin-bottom: 8px; }
+  .flow-step .name { font-size: 16.5px; color: #fff; font-weight: 600; margin-bottom: 4px; }
+  .flow-step .desc { font-size: 13.5px; color: #9aa4c8; line-height: 1.4; }
+  .flow-arrow { color: #6366f1; font-size: 26px; font-weight: 700; }
+
+  .stat-row { display: flex; gap: 22px; margin-top: 26px; }
+  .stat {
+    flex: 1; text-align: center; padding: 18px; border-radius: 16px;
+    background: rgba(255,255,255,.045); border: 1px solid rgba(129,140,248,.25);
+  }
+  .stat .num { font-size: 34px; font-weight: 800; color: #fff; }
+  .stat .lbl { font-size: 15px; color: #9aa4c8; margin-top: 4px; }
+
+  .thanks { justify-content: center; align-items: center; text-align: center; }
+  .thanks h1 { font-size: 72px; font-weight: 800; color: #fff; }
+  .thanks p { font-size: 24px; color: #9aa4c8; margin-top: 22px; }
+</style>
+</head>
+<body>
+
+<!-- ============ SLIDE 1 : TITLE ============ -->
+<div class="slide title-slide">
+  <div class="logo-badge">📦</div>
+  <h1>AI Smart Inventory Management System</h1>
+  <p class="tagline">An intelligent MERN-stack platform for inventory, GST billing &amp; AI-driven business insights</p>
+  <div class="meta">
+    <b>Presented by:</b> ____________________ &nbsp;|&nbsp; <b>Roll No:</b> ____________<br>
+    <b>Guided by:</b> ____________________ &nbsp;|&nbsp; <b>Academic Year:</b> 2025 – 26
+  </div>
+</div>
+
+<!-- ============ SLIDE 2 : INTRODUCTION ============ -->
+<div class="slide">
+  <div class="kicker">Introduction</div>
+  <h2>The Problem</h2>
+  <div class="subtitle-line"></div>
+  <ul class="points">
+    <li>Millions of small retail businesses (kirana stores, traders, wholesalers) still manage stock with <b>paper registers or basic spreadsheets</b>.</li>
+    <li>Manual billing leads to <b>GST calculation errors</b>, lost invoices, and compliance headaches.</li>
+    <li>Customer credit ("udhaar") is tracked in <b>physical khata books</b> — entries get lost, disputes arise, and payment reminders are forgotten.</li>
+    <li>Shop owners have <b>no visibility</b> into which products sell fast, what to reorder, or how much stock is lost to shrinkage.</li>
+    <li>Existing software is either <b>too expensive, too complex, or not built</b> for the Indian small-business workflow.</li>
+  </ul>
+  <div class="footer"><span>AI Smart Inventory Management System</span><span>2</span></div>
+</div>
+
+<!-- ============ SLIDE 3 : OBJECTIVES ============ -->
+<div class="slide">
+  <div class="kicker">Goals</div>
+  <h2>Project Objectives</h2>
+  <div class="subtitle-line"></div>
+  <div class="grid2">
+    <div class="card"><h3>🗃️ Digitise Inventory</h3><p>Replace manual registers with real-time stock tracking, units of measure, low-stock detection and shrinkage (stock-adjustment) records.</p></div>
+    <div class="card"><h3>🧾 Simplify GST Billing</h3><p>One-tap "Quick Sale" billing with automatic GST computation, PDF invoices and UPI QR codes for instant payment.</p></div>
+    <div class="card"><h3>🤖 Add Intelligence</h3><p>Use AI (Google Gemini) to forecast demand, generate reorder suggestions and surface actionable business insights.</p></div>
+    <div class="card"><h3>📒 Digital Khata</h3><p>Track customer credit and repayments digitally — a ledger that never loses an entry.</p></div>
+    <div class="card"><h3>📊 Analytics &amp; Reports</h3><p>Dashboards, sales trends, automated scheduled reports and Tally-compatible export for accountants.</p></div>
+    <div class="card"><h3>🌐 Accessible to All</h3><p>Multi-language interface (i18n), guided onboarding wizard, and a simple UI designed for non-technical shop owners.</p></div>
+  </div>
+  <div class="footer"><span>AI Smart Inventory Management System</span><span>3</span></div>
+</div>
+
+<!-- ============ SLIDE 4 : PROPOSED SYSTEM ============ -->
+<div class="slide">
+  <div class="kicker">Solution</div>
+  <h2>Proposed System</h2>
+  <div class="subtitle-line"></div>
+  <ul class="points" style="margin-bottom:6px;">
+    <li>A <b>full-stack web application</b> built on the MERN stack — MongoDB, Express.js, React, Node.js.</li>
+    <li>Single platform covering the complete retail workflow: <b>stock in → sell → bill → collect → analyse</b>.</li>
+    <li><b>AI-assisted decisions:</b> demand forecasting, smart alerts and an in-app help chatbot.</li>
+    <li><b>Automation:</b> cron jobs generate periodic reports and raise smart stock alerts without user effort.</li>
+  </ul>
+  <div class="flow">
+    <div class="flow-step"><div class="icon">📦</div><div class="name">Add Stock</div><div class="desc">Products, suppliers, opening stock via onboarding wizard</div></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step"><div class="icon">🛒</div><div class="name">Quick Sale</div><div class="desc">Search, weigh, bill in seconds with GST applied</div></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step"><div class="icon">🧾</div><div class="name">Invoice</div><div class="desc">PDF invoice + UPI QR, cash / online / credit</div></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step"><div class="icon">📒</div><div class="name">Khata</div><div class="desc">Credit sales tracked per customer with balances</div></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step"><div class="icon">📈</div><div class="name">Insights</div><div class="desc">AI forecasts, analytics, alerts &amp; reports</div></div>
+  </div>
+  <div class="footer"><span>AI Smart Inventory Management System</span><span>4</span></div>
+</div>
+
+<!-- ============ SLIDE 5 : ARCHITECTURE ============ -->
+<div class="slide">
+  <div class="kicker">Design</div>
+  <h2>System Architecture — 3-Tier MERN</h2>
+  <div class="subtitle-line"></div>
+  <div class="arch">
+    <div class="arch-tier">
+      <h3>Presentation Layer</h3>
+      <div class="tech">React 19 + Vite + Tailwind CSS</div>
+      <div class="arch-box">Pages: Dashboard, Inventory, Quick Sale, Khata, AI Insights, Analytics, Scanner</div>
+      <div class="arch-box">Reusable UI component library (Cards, Modals, KPI strips)</div>
+      <div class="arch-box">Recharts visualisations</div>
+      <div class="arch-box">i18next multi-language + Theme &amp; Auth contexts</div>
+    </div>
+    <div class="arch-arrow"><span class="line">⟶</span>REST API<br>(Axios, JSON)<span class="line">⟵</span></div>
+    <div class="arch-tier">
+      <h3>Application Layer</h3>
+      <div class="tech">Node.js + Express 5</div>
+      <div class="arch-box">17 modular route groups (/api/v1/…)</div>
+      <div class="arch-box">Controllers → Services pattern</div>
+      <div class="arch-box">JWT auth, Zod validation, rate limiting</div>
+      <div class="arch-box">AI (Gemini), OCR (Tesseract), PDF (PDFKit), Cron jobs</div>
+    </div>
+    <div class="arch-arrow"><span class="line">⟶</span>Mongoose ODM<span class="line">⟵</span></div>
+    <div class="arch-tier">
+      <h3>Data Layer</h3>
+      <div class="tech">MongoDB</div>
+      <div class="arch-box">Users &amp; Settings</div>
+      <div class="arch-box">Products &amp; Stock Adjustments</div>
+      <div class="arch-box">Sales, Transactions &amp; Counters</div>
+      <div class="arch-box">Customers, Khata Entries, Suppliers, Alerts</div>
+    </div>
+  </div>
+  <div class="footer"><span>AI Smart Inventory Management System</span><span>5</span></div>
+</div>
+
+<!-- ============ SLIDE 6 : TECH STACK ============ -->
+<div class="slide">
+  <div class="kicker">Technology</div>
+  <h2>Technology Stack</h2>
+  <div class="subtitle-line"></div>
+  <table style="font-size:17px;">
+    <style>.tech-table th, .tech-table td { padding: 9px 18px; }</style>
+    <tr><th style="width:22%;">Layer</th><th style="width:38%;">Technology</th><th>Purpose</th></tr>
+    <tr><td><b>Frontend</b></td><td>React 19, Vite, Tailwind CSS</td><td>Fast, responsive single-page application</td></tr>
+    <tr><td><b>Charts &amp; UI</b></td><td>Recharts, Lucide icons, i18next</td><td>Analytics visualisations &amp; multi-language UI</td></tr>
+    <tr><td><b>Backend</b></td><td>Node.js, Express 5</td><td>REST API with modular MVC + services architecture</td></tr>
+    <tr><td><b>Database</b></td><td>MongoDB + Mongoose 9</td><td>Flexible document storage, Decimal128 for money</td></tr>
+    <tr><td><b>AI</b></td><td>Google Gemini API</td><td>Demand forecasting, insights, help chatbot</td></tr>
+    <tr><td><b>OCR</b></td><td>Tesseract.js</td><td>Scan supplier bills to auto-extract products</td></tr>
+    <tr><td><b>Documents</b></td><td>PDFKit + QRCode</td><td>GST invoices with UPI payment QR codes</td></tr>
+    <tr><td><b>Security</b></td><td>JWT, bcrypt, Zod, express-rate-limit</td><td>Authentication, validation &amp; abuse protection</td></tr>
+    <tr><td><b>Automation</b></td><td>node-cron</td><td>Scheduled smart alerts &amp; report generation</td></tr>
+  </table>
+  <div class="footer"><span>AI Smart Inventory Management System</span><span>6</span></div>
+</div>
+
+<!-- ============ SLIDE 7 : MODULES OVERVIEW ============ -->
+<div class="slide">
+  <div class="kicker">Scope</div>
+  <h2>Key Modules</h2>
+  <div class="subtitle-line"></div>
+  <div class="grid3">
+    <div class="card"><h3>🔐 Authentication</h3><p>Register / login with JWT tokens, hashed passwords, guided 7-step onboarding wizard.</p></div>
+    <div class="card"><h3>📦 Inventory</h3><p>Products with units of measure, stock levels, low-stock flags, shrinkage tracking.</p></div>
+    <div class="card"><h3>🛒 Quick Sale &amp; Billing</h3><p>Amount-first or weight-first billing, GST computation, PDF invoice + UPI QR.</p></div>
+    <div class="card"><h3>📒 Customers &amp; Khata</h3><p>Customer directory with digital credit ledger and running balances.</p></div>
+    <div class="card"><h3>🚚 Suppliers</h3><p>Supplier records, purchase transactions, sample-pack shrinkage reports.</p></div>
+    <div class="card"><h3>🤖 AI Insights</h3><p>Gemini-powered demand forecasting, reorder report and help chatbot.</p></div>
+    <div class="card"><h3>📷 OCR Scanner</h3><p>Upload a bill photo — Tesseract extracts items to add stock quickly.</p></div>
+    <div class="card"><h3>📊 Analytics &amp; Reports</h3><p>KPI dashboard, sales trends, scheduled reports, Tally export.</p></div>
+    <div class="card"><h3>🔔 Smart Alerts</h3><p>Cron-driven alerts for low stock, expiry and unusual activity.</p></div>
+  </div>
+  <div class="footer"><span>AI Smart Inventory Management System</span><span>7</span></div>
+</div>
+
+<!-- ============ SLIDE 8 : INVENTORY ============ -->
+<div class="slide">
+  <div class="kicker">Module 1</div>
+  <h2>Inventory &amp; Product Management</h2>
+  <div class="subtitle-line"></div>
+  <div class="two-col">
+    <div>
+      <ul class="points">
+        <li><b>Product catalogue</b> with categories, pricing, GST rate and unit of measure (pieces, kg, grams, litres).</li>
+        <li><b>Real-time stock levels</b> updated automatically on every sale and purchase.</li>
+        <li><b>Low-stock detection</b> with configurable reorder thresholds per product.</li>
+        <li><b>Stock adjustments</b> module records shrinkage — damage, theft, expiry, counting errors — with reasons.</li>
+        <li><b>Precise quantities:</b> weight stored with dedicated utilities to avoid floating-point errors.</li>
+      </ul>
+    </div>
+    <div>
+      <div class="card" style="margin-bottom:18px;">
+        <h3>Why it matters</h3>
+        <p>The shop owner always knows <b>what is in stock, what is running out, and where stock is being lost</b> — replacing guesswork with data.</p>
+      </div>
+      <div class="card">
+        <h3>Implementation highlights</h3>
+        <p>• Mongoose <b>Product</b> &amp; <b>StockAdjustment</b> models<br>
+           • Zod-validated REST endpoints<br>
+           • Money &amp; weight stored as <b>Decimal128</b> for accuracy<br>
+           • Shrinkage page visualises losses by reason</p>
+      </div>
+    </div>
+  </div>
+  <div class="footer"><span>AI Smart Inventory Management System</span><span>8</span></div>
+</div>
+
+<!-- ============ SLIDE 9 : BILLING ============ -->
+<div class="slide">
+  <div class="kicker">Module 2</div>
+  <h2>Quick Sale &amp; GST Billing</h2>
+  <div class="subtitle-line"></div>
+  <div class="two-col">
+    <div>
+      <ul class="points">
+        <li><b>Designed for speed:</b> search a product, enter weight or amount, and the bill builds itself.</li>
+        <li><b>Amount-first mode:</b> customer says "₹50 of sugar" — the system back-calculates the quantity.</li>
+        <li><b>Tare-weight support</b> for weighing with containers.</li>
+        <li><b>Automatic GST</b> calculation per line item based on each product's tax rate.</li>
+        <li><b>Payment modes:</b> cash, UPI / online, or credit (goes straight to the customer's khata).</li>
+        <li><b>PDF invoice</b> generated server-side with PDFKit, including a <b>UPI QR code</b> for instant payment.</li>
+      </ul>
+    </div>
+    <div>
+      <div class="flow" style="flex-direction:column; gap:10px; margin-top:0;">
+        <div class="flow-step" style="width:100%;"><div class="name">🔍 Product search &amp; line-item editor</div></div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-step" style="width:100%;"><div class="name">⚖️ Weight chip / amount-first toggle</div></div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-step" style="width:100%;"><div class="name">🧮 GST computed per item (saleCompute)</div></div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-step" style="width:100%;"><div class="name">💳 Payment mode picker → Sale saved</div></div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-step" style="width:100%;"><div class="name">🧾 PDF invoice + UPI QR code</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="footer"><span>AI Smart Inventory Management System</span><span>9</span></div>
+</div>
+
+<!-- ============ SLIDE 10 : KHATA ============ -->
+<div class="slide">
+  <div class="kicker">Module 3</div>
+  <h2>Digital Khata — Customer Credit Ledger</h2>
+  <div class="subtitle-line"></div>
+  <div class="two-col">
+    <div>
+      <ul class="points">
+        <li>Replaces the traditional paper <b>khata (udhaar) book</b> used in Indian shops.</li>
+        <li>Every credit sale automatically creates a <b>khata entry</b> against the customer.</li>
+        <li><b>Running balance</b> maintained per customer — credits and repayments in one timeline.</li>
+        <li>Repayments can be recorded <b>partially or fully</b>, with full history preserved.</li>
+        <li>Owner sees <b>total outstanding credit</b> across all customers at a glance.</li>
+      </ul>
+    </div>
+    <div>
+      <div class="card" style="margin-bottom:18px;">
+        <h3>Data model</h3>
+        <p><b>Customer</b> ← linked to → <b>KhataEntry</b> (type: credit / payment, amount, linked sale, note, date) with a service layer that keeps balances consistent.</p>
+      </div>
+      <div class="card">
+        <h3>Impact</h3>
+        <p>No more lost entries or disputes — both the shopkeeper and the data agree on <b>exactly who owes what</b>.</p>
+      </div>
+    </div>
+  </div>
+  <div class="footer"><span>AI Smart Inventory Management System</span><span>10</span></div>
+</div>
+
+<!-- ============ SLIDE 11 : AI ============ -->
+<div class="slide">
+  <div class="kicker">Module 4 — the "AI" in the title</div>
+  <h2>AI Insights &amp; Smart Alerts</h2>
+  <div class="subtitle-line"></div>
+  <div class="two-col">
+    <div>
+      <ul class="points">
+        <li><b>Demand forecasting:</b> sales history is analysed via the <b>Google Gemini API</b> to predict upcoming demand per product.</li>
+        <li><b>Reorder report:</b> AI suggests what to restock, how much, and when — before items run out.</li>
+        <li><b>Help chatbot:</b> an in-app assistant answers "how do I…" questions for non-technical users.</li>
+        <li><b>Smart alerts cron:</b> a scheduled job scans inventory and raises alerts for low stock and anomalies.</li>
+        <li><b>Demand chart</b> visualises forecast vs. actual sales using Recharts.</li>
+      </ul>
+    </div>
+    <div>
+      <div class="flow" style="flex-direction:column; gap:10px; margin-top:0;">
+        <div class="flow-step" style="width:100%;"><div class="name">📊 Sales &amp; stock history (MongoDB)</div></div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-step" style="width:100%;"><div class="name">🧠 ai.service.js → Gemini API prompt</div></div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-step" style="width:100%;"><div class="name">📈 Forecast + reorder suggestions (JSON)</div></div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-step" style="width:100%;"><div class="name">🖥️ AI Insights page — charts &amp; action cards</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="footer"><span>AI Smart Inventory Management System</span><span>11</span></div>
+</div>
+
+<!-- ============ SLIDE 12 : OCR ============ -->
+<div class="slide">
+  <div class="kicker">Module 5</div>
+  <h2>OCR Bill Scanner</h2>
+  <div class="subtitle-line"></div>
+  <div class="two-col">
+    <div>
+      <ul class="points">
+        <li>Adding 50 products from a supplier bill by hand is slow and error-prone.</li>
+        <li>The owner simply <b>photographs the bill and uploads it</b> on the Scanner page.</li>
+        <li><b>Tesseract.js</b> performs optical character recognition on the server.</li>
+        <li>The OCR service <b>parses product names, quantities and prices</b> from the extracted text.</li>
+        <li>Parsed items are presented for <b>review and one-click import</b> into inventory.</li>
+      </ul>
+    </div>
+    <div>
+      <div class="flow" style="flex-direction:column; gap:10px; margin-top:0;">
+        <div class="flow-step" style="width:100%;"><div class="name">📷 Upload bill image (Multer)</div></div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-step" style="width:100%;"><div class="name">🔡 Tesseract.js text extraction</div></div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-step" style="width:100%;"><div class="name">🧩 Parse items, quantities &amp; prices</div></div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-step" style="width:100%;"><div class="name">✅ Review &amp; import into stock</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="footer"><span>AI Smart Inventory Management System</span><span>12</span></div>
+</div>
+
+<!-- ============ SLIDE 13 : ANALYTICS ============ -->
+<div class="slide">
+  <div class="kicker">Module 6</div>
+  <h2>Analytics, Reports &amp; Integrations</h2>
+  <div class="subtitle-line"></div>
+  <ul class="points">
+    <li><b>Dashboard KPIs:</b> today's sales, outstanding khata, low-stock count and top products at a glance.</li>
+    <li><b>Analytics page:</b> sales trends, category performance and payment-mode breakdown rendered with Recharts.</li>
+    <li><b>Automated reports:</b> a cron job (reportGenerator) compiles periodic business reports without manual effort.</li>
+    <li><b>Tally export:</b> transaction data can be exported in a Tally-compatible format for the accountant.</li>
+    <li><b>Shrinkage &amp; reorder reports</b> turn raw data into decisions: what is being lost, what to buy next.</li>
+  </ul>
+  <div class="stat-row">
+    <div class="stat"><div class="num">17</div><div class="lbl">API route modules</div></div>
+    <div class="stat"><div class="num">12+</div><div class="lbl">Database models</div></div>
+    <div class="stat"><div class="num">15+</div><div class="lbl">Frontend pages</div></div>
+    <div class="stat"><div class="num">2</div><div class="lbl">Automated cron jobs</div></div>
+    <div class="stat"><div class="num">3+</div><div class="lbl">Languages (i18n)</div></div>
+  </div>
+  <div class="footer"><span>AI Smart Inventory Management System</span><span>13</span></div>
+</div>
+
+<!-- ============ SLIDE 14 : SECURITY ============ -->
+<div class="slide">
+  <div class="kicker">Engineering quality</div>
+  <h2>Security &amp; Reliability</h2>
+  <div class="subtitle-line"></div>
+  <div class="grid2">
+    <div class="card"><h3>🔑 Authentication</h3><p>JWT-based sessions with bcrypt-hashed passwords; protected routes via auth middleware on both API and UI.</p></div>
+    <div class="card"><h3>🛡️ Input Validation</h3><p>Every endpoint validated with <b>Zod schemas</b> through a central validation middleware — malformed data never reaches the database.</p></div>
+    <div class="card"><h3>🚦 Rate Limiting</h3><p><b>express-rate-limit</b> protects login and API endpoints from brute-force and abuse.</p></div>
+    <div class="card"><h3>💰 Money Accuracy</h3><p>All currency and weight values use <b>Decimal128 / decimal.js</b> — no floating-point rounding errors in bills or GST.</p></div>
+    <div class="card"><h3>🧪 Testing</h3><p>Node test-runner smoke tests and end-to-end API tests verify endpoints, status codes and GST math.</p></div>
+    <div class="card"><h3>⚠️ Error Handling</h3><p>Central error middleware on the server and React Error Boundaries with toast feedback on the client.</p></div>
+  </div>
+  <div class="footer"><span>AI Smart Inventory Management System</span><span>14</span></div>
+</div>
+
+<!-- ============ SLIDE 15 : FUTURE SCOPE ============ -->
+<div class="slide">
+  <div class="kicker">Roadmap</div>
+  <h2>Future Scope</h2>
+  <div class="subtitle-line"></div>
+  <ul class="points">
+    <li><b>Mobile app</b> (React Native / PWA) so billing works at the counter on any phone.</li>
+    <li><b>WhatsApp / SMS integration</b> for sending invoices and automatic khata payment reminders.</li>
+    <li><b>Barcode scanning</b> at the billing counter for packaged goods.</li>
+    <li><b>Multi-store / multi-user workspaces</b> with role-based permissions for staff.</li>
+    <li><b>Offline-first mode</b> with sync — billing must never stop when the internet does.</li>
+    <li><b>Deeper AI:</b> price optimisation, festival-season demand models and anomaly detection for theft patterns.</li>
+  </ul>
+  <div class="footer"><span>AI Smart Inventory Management System</span><span>15</span></div>
+</div>
+
+<!-- ============ SLIDE 16 : CONCLUSION ============ -->
+<div class="slide">
+  <div class="kicker">Summary</div>
+  <h2>Conclusion</h2>
+  <div class="subtitle-line"></div>
+  <ul class="points">
+    <li>The system successfully <b>digitises the complete daily workflow</b> of a small retail business — inventory, billing, credit and analysis — in one application.</li>
+    <li><b>AI integration is practical, not decorative:</b> forecasts and alerts directly answer "what should I reorder and when?"</li>
+    <li>The <b>MERN architecture</b> with a clean controllers → services → models structure makes the system modular, testable and easy to extend.</li>
+    <li>Careful engineering choices — <b>Decimal128 money math, Zod validation, JWT security, cron automation</b> — make it reliable enough for real shops, not just a demo.</li>
+    <li>The project demonstrates end-to-end full-stack skills: <b>database design, REST APIs, modern React, AI/OCR integration and automated testing</b>.</li>
+  </ul>
+  <div class="footer"><span>AI Smart Inventory Management System</span><span>16</span></div>
+</div>
+
+<!-- ============ SLIDE 17 : THANK YOU ============ -->
+<div class="slide thanks">
+  <div class="logo-badge" style="width:84px;height:84px;border-radius:22px;background:linear-gradient(135deg,#6366f1,#10b981);display:flex;align-items:center;justify-content:center;font-size:40px;margin-bottom:30px;box-shadow:0 12px 50px rgba(99,102,241,.45);">🙏</div>
+  <h1>Thank You</h1>
+  <p>Questions &amp; Discussion</p>
+  <p style="font-size:17px; color:#5b648a; margin-top:40px;">AI Smart Inventory Management System — MERN Stack Project, 2025–26</p>
+</div>
+
+</body>
+</html>

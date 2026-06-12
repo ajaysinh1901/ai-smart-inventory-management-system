@@ -1,0 +1,23 @@
+<!DOCTYPE html><html><head><meta charset="UTF-8"><style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Arial,sans-serif}
+body{width:1120px;height:440px;background:#fff;padding:24px}
+.title{text-align:center;font-size:21px;font-weight:700;color:#1f3864;margin-bottom:26px}
+.flow{display:flex;align-items:center;justify-content:center;gap:6px}
+.node{width:150px;text-align:center}
+.node .box{border:2px solid #1f3864;border-radius:10px;padding:14px 8px;font-size:13.5px;font-weight:600;color:#1f3864;background:#fff;min-height:74px;display:flex;align-items:center;justify-content:center}
+.node .lbl{font-size:11px;color:#666;margin-top:5px}
+.step{flex:1;text-align:center}
+.step .t{font-size:11.5px;color:#2e5f9e;font-weight:600;margin-bottom:3px}
+.step .a{color:#2e5f9e;font-size:24px}
+.cap{text-align:center;font-size:13px;color:#444;margin-top:30px;font-style:italic}
+</style></head><body>
+<div class="title">JWT Authentication Flow</div>
+<div class="flow">
+  <div class="node"><div class="box">Client<br>(React App)</div><div class="lbl">Browser</div></div>
+  <div class="step"><div class="t">1. Login (email + password)</div><div class="a">&rarr;</div><div class="t">4. JWT returned</div><div class="a">&larr;</div></div>
+  <div class="node"><div class="box">Express<br>API Server</div><div class="lbl">Auth controller</div></div>
+  <div class="step"><div class="t">2. Verify credentials</div><div class="a">&rarr;</div><div class="t">3. User record</div><div class="a">&larr;</div></div>
+  <div class="node"><div class="box">MongoDB</div><div class="lbl">bcrypt hash check</div></div>
+</div>
+<div class="cap">After login the signed JWT is stored client-side and sent with every request; auth middleware verifies it before any protected route executes.</div>
+</body></html>

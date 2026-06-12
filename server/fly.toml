@@ -1,0 +1,46 @@
+# Fly.io config — backup deploy target if you outgrow Render free.
+# Fly's free allowance covers small Express + Mongoose backends with zero cold starts.
+# Requires a credit card on signup (charges only if you exceed free allowances).
+#
+# Deploy:
+#   cd server
+#   fly launch --no-deploy   # links the app, generates fly.toml (use this one instead)
+#   fly secrets set MONGODB_URI=... JWT_SECRET=... CLIENT_URL=... GEMINI_API_KEY=...
+#   fly deploy
+
+app = "smartstock-api"
+primary_region = "sin"          # Singapore — lowest latency from India
+
+[build]
+  dockerfile = "Dockerfile"
+
+[env]
+  NODE_ENV  = "production"
+  PORT      = "8080"
+  JWT_EXPIRES_IN = "7d"
+  VERCEL_PROJECT_SLUG = "client"
+  SMART_ALERTS_CRON   = "0 9 * * *"
+
+[http_service]
+  internal_port = 8080
+  force_https = true
+  auto_stop_machines = false    # never sleep -> no cold start
+  auto_start_machines = true
+  min_machines_running = 1
+
+  [http_service.concurrency]
+    type = "requests"
+    soft_limit = 50
+    hard_limit = 100
+
+[[http_service.checks]]
+  interval = "30s"
+  timeout  = "5s"
+  grace_period = "10s"
+  method = "GET"
+  path   = "/api/v1/health"
+
+[[vm]]
+  cpu_kind = "shared"
+  cpus     = 1
+  memory_mb = 256             # bump to 512 if tesseract OCR runs out of RAM

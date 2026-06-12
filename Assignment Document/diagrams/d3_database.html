@@ -1,0 +1,33 @@
+<!DOCTYPE html><html><head><meta charset="UTF-8"><style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Arial,sans-serif}
+body{width:1120px;height:660px;background:#fff;padding:24px}
+.title{text-align:center;font-size:21px;font-weight:700;color:#1f3864;margin-bottom:18px}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.ent{border:1.5px solid #1f3864;border-radius:8px;overflow:hidden}
+.ent .h{background:#2e5f9e;color:#fff;font-size:13.5px;font-weight:700;padding:6px 9px}
+.ent ul{list-style:none;padding:7px 9px}
+.ent li{font-size:11.5px;color:#33425f;line-height:1.5}
+.ent li.k{color:#1f3864;font-weight:600}
+.rel{margin-top:16px;border:1px dashed #6b7fb0;border-radius:8px;padding:10px 14px}
+.rel b{color:#1f3864}
+.rel p{font-size:12.5px;color:#3a4a66;line-height:1.7}
+.cap{text-align:center;font-size:13px;color:#444;margin-top:12px;font-style:italic}
+</style></head><body>
+<div class="title">Database Schema &mdash; Principal Collections &amp; Relationships</div>
+<div class="grid">
+  <div class="ent"><div class="h">User</div><ul><li class="k">_id (PK)</li><li>name, email</li><li>passwordHash</li><li>role</li></ul></div>
+  <div class="ent"><div class="h">Product</div><ul><li class="k">_id (PK)</li><li>name, category</li><li>price, gstRate</li><li>unit, stockQty</li><li>reorderLevel</li></ul></div>
+  <div class="ent"><div class="h">Sale</div><ul><li class="k">_id (PK)</li><li>invoiceNo</li><li>lineItems[]</li><li>gstTotal, total</li><li>paymentMode</li><li class="k">customerId (FK)</li></ul></div>
+  <div class="ent"><div class="h">Customer</div><ul><li class="k">_id (PK)</li><li>name, phone</li><li>creditBalance</li></ul></div>
+  <div class="ent"><div class="h">KhataEntry</div><ul><li class="k">_id (PK)</li><li class="k">customerId (FK)</li><li>type (credit/pay)</li><li>amount, note</li><li class="k">saleId (FK)</li></ul></div>
+  <div class="ent"><div class="h">StockAdjustment</div><ul><li class="k">_id (PK)</li><li class="k">productId (FK)</li><li>qty, reason</li><li>date</li></ul></div>
+  <div class="ent"><div class="h">Supplier</div><ul><li class="k">_id (PK)</li><li>name, contact</li><li>products[]</li></ul></div>
+  <div class="ent"><div class="h">Alert / Counter</div><ul><li class="k">_id (PK)</li><li>type, message</li><li>seq (invoice no.)</li></ul></div>
+</div>
+<div class="rel"><p>
+<b>Relationships:</b>&nbsp; User <b>1&mdash;N</b> Product, Sale, Customer, Supplier &nbsp;&bull;&nbsp;
+Customer <b>1&mdash;N</b> KhataEntry &nbsp;&bull;&nbsp; Sale <b>1&mdash;1</b> KhataEntry (credit sale) &nbsp;&bull;&nbsp;
+Product <b>1&mdash;N</b> StockAdjustment &nbsp;&bull;&nbsp; Counter provides atomic, gap-free invoice numbers. All money fields use Decimal128.
+</p></div>
+<div class="cap">Figure: Entity overview showing primary keys (PK), foreign-key references (FK) and the main relationships.</div>
+</body></html>

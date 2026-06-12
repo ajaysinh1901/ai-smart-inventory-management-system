@@ -1,0 +1,46 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+build/
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Env files — never commit secrets
+.env
+.env.local
+.env.*.local
+
+# Keep .env.example tracked (it ships with the repo)
+!.env.example
+
+# Session cookie dumps captured during testing — contain JWTs
+admin_cookies.txt
+manager_cookies.txt
+*_cookies.txt
+
+# Vercel project linkage
+.vercel
+
+# Server uploads + runtime artefacts
+server/src/uploads/*
+!server/src/uploads/.gitkeep
+server/server.*.log
+server/server.out.log
+server/server.err.log
+
+# Client build artefacts
+client/build_error.log
+client/dist/
+
+# Temporary document build artefacts
+Assignment Document/_tmp_build.*

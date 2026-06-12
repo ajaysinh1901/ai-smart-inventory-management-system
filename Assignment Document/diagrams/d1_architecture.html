@@ -1,0 +1,52 @@
+<!DOCTYPE html><html><head><meta charset="UTF-8"><style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Arial,sans-serif}
+body{width:1120px;height:600px;background:#fff;padding:24px}
+.title{text-align:center;font-size:21px;font-weight:700;color:#1f3864;margin-bottom:20px}
+.row{display:flex;align-items:stretch;justify-content:center;gap:0}
+.tier{flex:1;max-width:320px;border:2px solid #1f3864;border-radius:10px;overflow:hidden}
+.tier .head{background:#1f3864;color:#fff;text-align:center;padding:10px}
+.tier .head b{font-size:16px;display:block}
+.tier .head span{font-size:12px;color:#c9d6ef}
+.tier .body{padding:12px 12px 6px}
+.box{border:1px solid #6b7fb0;border-radius:6px;padding:8px 10px;font-size:13px;color:#22314f;margin-bottom:8px;background:#fff}
+.conn{display:flex;flex-direction:column;align-items:center;justify-content:center;width:120px;color:#1f3864;font-weight:600;font-size:12px;text-align:center}
+.conn .ar{font-size:26px;line-height:1.1;color:#2e5f9e}
+.cap{text-align:center;font-size:13px;color:#444;margin-top:16px;font-style:italic}
+</style></head><body>
+<div class="title">Three-Tier Architecture of the AI Smart Inventory Management System</div>
+<div class="row">
+  <div class="tier">
+    <div class="head"><b>Presentation Tier</b><span>React 19 &middot; Vite &middot; Tailwind CSS</span></div>
+    <div class="body">
+      <div class="box">Pages &mdash; Dashboard, Inventory, Quick Sale, Khata, AI Insights, Analytics, Scanner</div>
+      <div class="box">Reusable UI component library</div>
+      <div class="box">Recharts data visualisation</div>
+      <div class="box">Context API &mdash; Auth &amp; Theme state</div>
+      <div class="box">i18next multi-language support</div>
+    </div>
+  </div>
+  <div class="conn"><span class="ar">&#10142;</span>REST API<br>HTTP / JSON<br>(Axios)<span class="ar">&#10142;</span></div>
+  <div class="tier">
+    <div class="head"><b>Application Tier</b><span>Node.js &middot; Express 5</span></div>
+    <div class="body">
+      <div class="box">Routes &rarr; Controllers &rarr; Services</div>
+      <div class="box">JWT authentication middleware</div>
+      <div class="box">Zod validation &amp; rate limiting</div>
+      <div class="box">AI, OCR, PDF &amp; Tally services</div>
+      <div class="box">Scheduled cron jobs</div>
+    </div>
+  </div>
+  <div class="conn"><span class="ar">&#10142;</span>Mongoose<br>ODM<span class="ar">&#10142;</span></div>
+  <div class="tier">
+    <div class="head"><b>Data Tier</b><span>MongoDB</span></div>
+    <div class="body">
+      <div class="box">Users &amp; Settings</div>
+      <div class="box">Products &amp; Stock Adjustments</div>
+      <div class="box">Sales, Transactions &amp; Counters</div>
+      <div class="box">Customers &amp; Khata Entries</div>
+      <div class="box">Suppliers &amp; Alerts</div>
+    </div>
+  </div>
+</div>
+<div class="cap">The client communicates with the server over a REST API; the server persists data to MongoDB through the Mongoose ODM.</div>
+</body></html>
